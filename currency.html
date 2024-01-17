@@ -4,13 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Currency Exchange</title>
-    <script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            document.querySelector("form").onsubmit = () => {
+                fetch("https://open.er-api.com/v6/latest/USD")
+                .then(response => response.json())
+                .then(rates => {
+                    const currency = document.querySelector("#currency").value.toUpperCase();
+                    const rate = rates.rates[currency];
+                    if (rate !== undefined) {
+                        document.querySelector("#result").innerHTML = `1 USD is equal to ${rate.toFixed(2)} ${currency}`;
+                    } else {
+                        document.querySelector("#result").innerHTML = "Invalid currency.";
+                    }
+                });
+                return false;
+            }
+        });
     </script>
+
 </head>
 
 <body>
-    <h1>Currency</h1>
+    <form action="">
+        <input id="currency" placeholder="Currency" type="text">
+        <input type="submit" value="Convert">
+    </form>
+    <div id="result">
+
+    </div>
 </body>
 
 </html>
