@@ -19,6 +19,9 @@
                     } else {
                         document.querySelector("#result").innerHTML = "Invalid currency.";
                     }
+                })
+                .catch(() => {
+                    document.querySelector("#result").innerHTML = "Error fetching exchange rate.";
                 });
                 return false;
             }
